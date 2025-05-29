@@ -29,6 +29,7 @@ import {
   ChevronRight,
   Printer,
   User,
+  Crown,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -409,6 +410,14 @@ export default function AdminDashboard() {
             >
               <Settings className="mr-2 h-4 w-4" />
               Settings
+            </Button>
+            <Button
+              variant={activeTab === "admin-users" ? "default" : "ghost"}
+              className="w-full justify-start"
+              onClick={() => setActiveTab("admin-users")}
+            >
+              <Crown className="mr-2 h-4 w-4" />
+              Admin Users
             </Button>
           </nav>
           <div className="p-4 border-t">
@@ -1971,6 +1980,66 @@ export default function AdminDashboard() {
                       <Button variant="outline">
                         <Edit className="mr-2 h-4 w-4" />
                         Update Notification Settings
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+
+            {activeTab === "admin-users" && (
+              <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                  <h1 className="text-2xl font-bold tracking-tight">Admin Users</h1>
+                  <Button asChild>
+                    <Link href="/admin/users">
+                      <Settings className="mr-2 h-4 w-4" />
+                      Manage Admin Users
+                    </Link>
+                  </Button>
+                </div>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Admin Access Control</CardTitle>
+                    <CardDescription>Manage who has access to the admin dashboard</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between p-4 border rounded-lg">
+                        <div>
+                          <h3 className="font-medium">Super Admin</h3>
+                          <p className="text-sm text-muted-foreground">Full access to all features</p>
+                        </div>
+                        <Badge variant="default">1 User</Badge>
+                      </div>
+                      <div className="flex items-center justify-between p-4 border rounded-lg">
+                        <div>
+                          <h3 className="font-medium">Admin</h3>
+                          <p className="text-sm text-muted-foreground">Manage products, orders, and customers</p>
+                        </div>
+                        <Badge variant="secondary">1 User</Badge>
+                      </div>
+                      <div className="flex items-center justify-between p-4 border rounded-lg">
+                        <div>
+                          <h3 className="font-medium">Staff</h3>
+                          <p className="text-sm text-muted-foreground">Limited access to orders and support</p>
+                        </div>
+                        <Badge variant="outline">1 User</Badge>
+                      </div>
+                    </div>
+                    <div className="mt-6 flex space-x-2">
+                      <Button asChild>
+                        <Link href="/admin/users">
+                          <Plus className="mr-2 h-4 w-4" />
+                          Add Admin User
+                        </Link>
+                      </Button>
+                      <Button variant="outline" asChild>
+                        <Link href="/admin/setup">
+                          <Settings className="mr-2 h-4 w-4" />
+                          Admin Setup
+                        </Link>
                       </Button>
                     </div>
                   </CardContent>

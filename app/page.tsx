@@ -472,12 +472,12 @@ export default function HomePage() {
       {/* New Arrivals */}
       <section className="py-16 bg-purple-50">
         <div className="container px-4">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
             <div>
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl mb-2 text-gray-900">New Arrivals</h2>
               <p className="text-gray-600">Check out our latest products</p>
             </div>
-            <Link href="/new-arrivals">
+            <Link href="/new-arrivals" className="mt-4 md:mt-0">
               <Button variant="outline">
                 View All
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -560,8 +560,8 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="bg-pink-200 py-12">
         <div className="container px-4">
-          <div className="grid gap-8 md:grid-cols-5">
-            <div>
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
+            <div className="lg:col-span-1">
               <div className="flex items-center space-x-2 mb-4">
                 <div className="h-8 w-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">SWD</span>
@@ -572,7 +572,7 @@ export default function HomePage() {
                 Your trusted partner for premium quality products and exceptional customer service.
               </p>
             </div>
-            <div>
+            <div className="lg:col-span-1">
               <h3 className="font-semibold mb-4 text-gray-800">Quick Links</h3>
               <div className="space-y-2">
                 <Link href="/about" className="block text-gray-600 hover:text-gray-800">
@@ -592,7 +592,7 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <div>
+            <div className="lg:col-span-1">
               <h3 className="font-semibold mb-4 text-gray-800">Customer Service</h3>
               <div className="space-y-2">
                 <Link href="/shipping" className="block text-gray-600 hover:text-gray-800">
@@ -609,7 +609,7 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <div>
+            <div className="lg:col-span-1">
               <h3 className="font-semibold mb-4 text-gray-800">Contact Info</h3>
               <div className="space-y-2 text-gray-600">
                 <p>Email: support@shopwithdees.com</p>
@@ -617,11 +617,14 @@ export default function HomePage() {
                 <p>Address: ShopWithDee's Abuja, Nigeria</p>
               </div>
             </div>
-            <div>
+            <div className="lg:col-span-1">
               <h3 className="font-semibold mb-4 text-gray-800">Admin Access</h3>
               <div className="space-y-2">
                 <Link href="/admin" className="block text-gray-600 hover:text-gray-800 font-medium">
                   Admin Dashboard
+                </Link>
+                <Link href="/admin/setup" className="block text-gray-600 hover:text-gray-800">
+                  Admin Setup
                 </Link>
                 <p className="text-xs text-gray-500">For authorized personnel only</p>
               </div>

@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
@@ -21,18 +21,50 @@ export default function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
+  const [setupComplete, setSetupComplete] = useState(false)
+
+  useEffect(() => {
+    // Check if admin setup is complete
+    const adminSetupComplete = localStorage.getItem("adminSetupComplete")
+    setSetupComplete(adminSetupComplete === "true")
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
     setError("")
 
-    // Simple authentication check
-    if (email === "admin@shopwithdees.com" && password === "admin123") {
-      localStorage.setItem("adminAuth", "true")
-      router.push("/admin")
-    } else {
-      setError("Invalid email or password")
+    try {
+      // Check if admin setup is complete
+      if (setupComplete) {
+        // Get admin user from localStorage
+        const adminUserStr = localStorage.getItem("adminUser")
+        if (!adminUserStr) {
+          setError("Admin account not found. Please complete setup first.")
+          setIsLoading(false)
+          return
+        }
+
+        const adminUser = JSON.parse(adminUserStr)
+
+        // Simple authentication check
+        if (email === adminUser.email && btoa(password) === adminUser.passwordHash) {
+          localStorage.setItem("adminAuth", "true")
+          router.push("/admin")
+        } else {
+          setError("Invalid email or password")
+        }
+      } else {
+        // If setup is not complete, use default credentials
+        if (email === "admin@shopwithdees.com" && password === "admin123") {
+          localStorage.setItem("adminAuth", "true")
+          router.push("/admin")
+        } else {
+          setError("Invalid email or password")
+        }
+      }
+    } catch (error) {
+      setError("An error occurred. Please try again.")
     }
 
     setIsLoading(false)
@@ -80,7 +112,7 @@ export default function AdminLogin() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="admin@shopwithdees.com"
+                      placeholder={setupComplete ? "Enter your email" : "admin@shopwithdees.com"}
                       className="pl-10"
                     />
                     <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -130,22 +162,33 @@ export default function AdminLogin() {
               </Button>
             </form>
 
-            <div className="mt-6">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
+            {!setupComplete && (
+              <div className="mt-6">
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-300" />
+                  </div>
+                  <div className="relative flex justify-center text-sm">
+                    <span className="px-2 bg-white text-gray-500">Demo Credentials</span>
+                  </div>
                 </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">Demo Credentials</span>
+                <div className="mt-4 p-4 bg-gray-50 rounded-md">
+                  <p className="text-sm text-gray-600 text-center">
+                    <strong>Email:</strong> admin@shopwithdees.com
+                    <br />
+                    <strong>Password:</strong> admin123
+                  </p>
                 </div>
               </div>
-              <div className="mt-4 p-4 bg-gray-50 rounded-md">
-                <p className="text-sm text-gray-600 text-center">
-                  <strong>Email:</strong> admin@shopwithdees.com
-                  <br />
-                  <strong>Password:</strong> admin123
-                </p>
-              </div>
+            )}
+
+            <div className="mt-6 text-center">
+              <p className="text-sm text-gray-600">
+                First time setup?{" "}
+                <Link href="/admin/setup" className="font-medium text-purple-600 hover:text-purple-500">
+                  Create Admin Account
+                </Link>
+              </p>
             </div>
           </CardContent>
         </Card>
