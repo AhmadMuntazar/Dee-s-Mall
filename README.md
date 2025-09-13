@@ -1,30 +1,60 @@
-# Simple business website
+# Dee’s Online Shopping Mall
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+A sleek, responsive, static storefront for **Dee’s Online Shopping Mall**.  
+Live preview will be auto-deployed via **GitHub Pages**.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/ahmad-muhammads-projects-0b1cdbdb/v0-simple-business-website)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/2PUORv0vhRN)
+## ✨ Features
+- Responsive catalog with search, category & price filters, and sort
+- Product quick view modal
+- Cart with localStorage persistence
+- Clean dark theme with gradient accents
+- Easy to edit `products.json` (₦ pricing), simple SVG logo in `assets/`
 
-## Overview
+## 🚀 Quick Start (Local)
+```bash
+# Optionally serve with Python for correct CORS on fetch
+python -m http.server 8080
+# then visit http://localhost:8080
+```
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+## ☁️ Deploy to GitHub Pages (Automated)
+> This repo includes a GitHub Actions workflow (`.github/workflows/pages.yml`) that deploys automatically on every push to **main**.
 
-## Deployment
+### 1) Create the repo on GitHub
+- Create an empty repository (e.g., `dees-store`) **without** adding a README.
 
-Your project is live at:
+### 2) Push this project
+```bash
+# in the folder with these files
+git init
+git branch -M main
+git add .
+git commit -m "Initial commit for Dee’s Online Shopping Mall"
+git remote add origin https://github.com/<YOUR_USERNAME>/<YOUR_REPO>.git
+git push -u origin main
+```
 
-**[https://vercel.com/ahmad-muhammads-projects-0b1cdbdb/v0-simple-business-website](https://vercel.com/ahmad-muhammads-projects-0b1cdbdb/v0-simple-business-website)**
+### 3) Enable Pages (first time only)
+- Go to **Settings → Pages** in the GitHub repo
+- Set **Source** to “**GitHub Actions**” (the workflow handles the rest)
+- After Actions finishes, your site will be available at:
+  `https://<YOUR_USERNAME>.github.io/<YOUR_REPO>/`
 
-## Build your app
+## 🛍️ Configure Your Store
+- **Products:** Edit `products.json` (id, name, price, category, rating, image URL, badges, description)
+- **Branding:** Replace `assets/logo.svg` and `favicon.svg` and edit text in `index.html`
+- **Contact Info:** Update the Contact section in `index.html`
 
-Continue building your app on:
+## 🔐 (Optional) Custom Domain
+- Add your domain’s CNAME record to point at `username.github.io`
+- Create a `CNAME` file in the repo root containing your domain, e.g.:
+```
+shop.yourdomain.com
+```
 
-**[https://v0.dev/chat/projects/2PUORv0vhRN](https://v0.dev/chat/projects/2PUORv0vhRN)**
+## 💳 (Later) Real Checkout
+- Integrate Paystack/Flutterwave by replacing the `checkout()` stub in `app.js`
+- Add serverless functions or external order forms as needed
 
-## How It Works
-
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+## 🧾 License
+MIT — see `LICENSE`.
